@@ -1,0 +1,43 @@
+* {
+    margin: 10px;
+    padding: 10px;
+    line-height: 1.5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: rgb(177 112 32 / 8%);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+button {
+    border-radius: 18px;
+    background-color: rgb(3 75 184 / 38%);
+    color: #290404;
+    font-weight: bold;
+}
+
+#start-button {
+    font-size: 25px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    position: absolute;
+    right: 28%;
+    left: 28%;
+}
+
+h1 {
+    text-align: center;
+    font-size: 35px;
+    color: #191c75;
+}
+
+h3 {
+    color: #191c75;
+}
