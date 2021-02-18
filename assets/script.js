@@ -27,7 +27,7 @@ var question4 = {
     answer: "Array"
 
 }
-        console.log(question4.question);
+        console.log(question4.choices[3]);
 
 var secondsLeft = 60;
 
@@ -39,8 +39,6 @@ startButton.addEventListener("click", function() {
     askQuestions();
 
 });
-
-
 
 function timeLeft() {
     var timer = setInterval(function() {
@@ -59,32 +57,47 @@ function timeLeft() {
 
 function askQuestions() {
     var questionBox = document.createElement("h2");
-    questionBox.textContent(questions.question);
+    questionBox.textContent= (question1.question);
     mainEl.appendChild(questionBox);
 
-    var index = 0;
-    var quesitonsObj = questions[index]
-    for(var i = 0; i < quesitonsObj.choices.length; i++) {
-        var choicesElement = document.createElement("button")
-        choicesElement.setAttribute("class", "choices")
-        choicesElement.setAttribute("data-value", quesitonsObj.choices[i])
-        choicesElement.textContent = quesitonsObj.choices[i]
-        document.body.appendChild(choicesElement);
-    };
-    document.body.addEventListener("click", function(event) {
-        // console.log(event)
-        if(event.target.className === "choices") {
-            var userChoice = event.target.textContent
-            if(userChoice === quesitonsObj.answer) {
-                console.log("you got it correct")
-                console.log("iterate next question")
-                index++
-                console.log(index)
-                console.log(questions[index])
-            }
-        }
+    var choiceA = document.createElement("button");
+    var choiceB = document.createElement("button");
+    var choiceC = document.createElement("button");
+    var choiceD = document.createElement("button");
+
+    choiceA.textContent= (question1.choices[0]);
+    choiceB.textContent= (question1.choices[1]);
+    choiceC.textContent= (question1.choices[2]);
+    choiceD.textContent= (question1.choices[3]);
+
+    mainEl.appendChild(choiceA);
+    mainEl.appendChild(choiceB);
+    mainEl.appendChild(choiceC);
+    mainEl.appendChild(choiceD);
     
+
+    // var index = 0;
+    // var quesitonsObj = questions[index]
+    // for(var i = 0; i < quesitonsObj.choices.length; i++) {
+    //     var choicesElement = document.createElement("button")
+    //     choicesElement.setAttribute("class", "choices")
+    //     choicesElement.setAttribute("data-value", quesitonsObj.choices[i])
+    //     choicesElement.textContent = quesitonsObj.choices[i]
+    //     document.body.appendChild(choicesElement);
+    // };
+    // document.body.addEventListener("click", function(event) {
+    //     // console.log(event)
+    //     if(event.target.className === "choices") {
+    //         var userChoice = event.target.textContent
+    //         if(userChoice === quesitonsObj.answer) {
+    //             console.log("you got it correct")
+    //             console.log("iterate next question")
+    //             index++
+    //             console.log(index)
+    //             console.log(questions[index])
+    //         }
+    //     }
     
- 
-});
 }
+// });
+// }
