@@ -35,6 +35,9 @@ console.log(questions[0].answer);
 
 var secondsLeft = 60;
 
+var correct = localStorage.getItem("correct");
+var incorrect = localStorage.getItem("incorrect");
+
 startButton.addEventListener("click", function() {
     var header = document.querySelector("h1");
     header.remove();
@@ -98,9 +101,17 @@ mainEl.addEventListener("click", function(event) {
     }
         if(userChoice === questions[0].answer) {
         console.log("correct");
-    
+        localStorage.setItem("correct", correct);
+        askQuestions();
+    }
+        else {
+            console.log("incorrect");
+            localStorage.setItem("incorrect", incorrect);
+            secondsLeft -= 5;
+            questionIndex++;
+            askQuestions();
         }
-
+        
 })
 
 
