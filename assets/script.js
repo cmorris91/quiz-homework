@@ -4,6 +4,7 @@ var startButton = document.querySelector("#start-button");
 var header = document.querySelector("h1");
 var mainEl = document.querySelector("main");
 
+
 var question1 = {
     question: "What is a JavaScript element that represents either TRUE or FALSE values?",
     choices: ["Event", "Boolean", "tag", "footer"],
@@ -30,13 +31,9 @@ var question4 = {
 var questions = [
     question1, question2, question3, question4
 ]
-
-console.log(questions[0].answer);
-
 var secondsLeft = 60;
-
-var correct = localStorage.getItem("correct");
-var incorrect = localStorage.getItem("incorrect");
+var correct = 0; 
+var incorrect = 0;
 
 startButton.addEventListener("click", function() {
     var header = document.querySelector("h1");
@@ -44,99 +41,129 @@ startButton.addEventListener("click", function() {
     startButton.remove();
     timeLeft();
     askQuestions();
-
+    showChoices();
+    
 });
 
 function timeLeft() {
     var timer = setInterval(function() {
         secondsLeft--;
-     timeEl.textContent = secondsLeft + " seconds left ";
-     console.log
-     if(secondsLeft === 0) {
-         clearInterval(timer);
-// going to call function here that will end quiz and show 
-// score 
-     }
-
+        timeEl.textContent = secondsLeft + " seconds left ";
+        console.log
+        if(secondsLeft === 0) {
+            clearInterval(timer);
+            // endQuiz();
+        }
+        
     }, 1000);
     return;
 };
 
 var questionIndex = 0;
-
+var questionBox = questions[questionIndex];
+console.log(questions[questionIndex].question);
 function askQuestions() {
-    var questionBox = document.createElement("h2");
-    questionBox.textContent= (questions[questionIndex].question);
-    mainEl.appendChild(questionBox);
-
-    var choiceA = document.createElement("button");
-    var choiceB = document.createElement("button");
-    var choiceC = document.createElement("button");
-    var choiceD = document.createElement("button");
-
-    choiceA.setAttribute("class", "choices");
-    choiceB.setAttribute("class", "choices");
-    choiceC.setAttribute("class", "choices");
-    choiceD.setAttribute("class", "choices");
-
-
-    choiceA.textContent= (questions[questionIndex].choices[0]);
-    choiceB.textContent= (questions[questionIndex].choices[1]);
-    choiceC.textContent= (questions[questionIndex].choices[2]);
-    choiceD.textContent= (questions[questionIndex].choices[3]);
-
-    mainEl.appendChild(choiceA);
-    mainEl.appendChild(choiceB);
-    mainEl.appendChild(choiceC);
-    mainEl.appendChild(choiceD);
     
-    console.log(choiceB);
-};
+    // for(var i=0; i < questionBox.question.length; i++)
+    var questionElement = document.createElement("h2");
+    questionElement.textContent = (questions[questionIndex].question);
+    mainEl.appendChild(questionElement);
+    console.log(questionElement);
+}
+function showChoices () {
+    var choicesBox = questions[questionIndex]
+    for(var j=0; j< choicesBox.choices.length; j++) {
+      var choicesElement = document.createElement("button");
+      choicesElement.setAttribute("class", "choices");
+      choicesElement.textContent = choicesBox.choices[j];
+      mainEl.appendChild(choicesElement);
+   
+   } 
+   }
 
 mainEl.addEventListener("click", function(event) {
     console.log(event)
     if(event.target.className === "choices") {
-        console.log(event.target.textContent)
-        var userChoice = event.target.textContent
+        // questionIndex is = to the final length of the array set questionIndex to the length of the array
+       
+            console.log(event.target.textContent)
+            var userChoice = event.target.textContent
+            if(userChoice === questionBox.answer) {
+                console.log("correct");
+                correct++;
+                questionIndex++
+                mainEl.innerHTML = ""
+                askQuestions();
+                showChoices();
+            }
+            else {
+                console.log("incorrect");
+                incorrect++;
+                secondsLeft -= 5;
+                mainEl.innerHTML = ""
+                questionIndex++;
+                askQuestions();
+                showChoices(); 
+            } 
     }
-        if(userChoice === questions[0].answer) {
-        console.log("correct");
-        localStorage.setItem("correct", correct);
-        askQuestions();
-    }
-        else {
-            console.log("incorrect");
-            localStorage.setItem("incorrect", incorrect);
-            secondsLeft -= 5;
-            questionIndex++;
-            askQuestions();
-        }
-        
+    if(questionIndex > questions.length) {
+        return;
+     }
+    
 })
 
+// function getScore() {
+//     var finalScore = 0;
+//     if(correct === 1) {
+//         finalScore += 25;
+//     }
+//     if(correct === 2) {
+//         finalScore += 50;
+//     }
+//     if(correct === 3) {
+//         finalScore += 75;
+//     }
+//     if(correct === 4) {
+//         finalScore += 100;
+//     }
+//     var userScore = finalScore.value;
+//     console.log(userscore);
 
-    // var index = 0;
-    // var quesitonsObj = questions[index]
-    // for(var i = 0; i < quesitonsObj.choices.length; i++) {
-    //     var choicesElement = document.createElement("button")
-    //     choicesElement.setAttribute("class", "choices")
-    //     choicesElement.setAttribute("data-value", quesitonsObj.choices[i])
-    //     choicesElement.textContent = quesitonsObj.choices[i]
-    //     document.body.appendChild(choicesElement);
-    // };
-    // document.body.addEventListener("click", function(event) {
-    //     // console.log(event)
-    //     if(event.target.className === "choices") {
-    //         var userChoice = event.target.textContent
-    //         if(userChoice === quesitonsObj.answer) {
-    //             console.log("you got it correct")
-    //             console.log("iterate next question")
-    //             index++
-    //             console.log(index)
-    //             console.log(questions[index])
-    //         }
-    //     }
+//     mainEl.appendChild(userScore);
+
+//     localStorage.setItem("Highscores", userScore);
+// }
+
+// function endQuiz() {
+
+//     questionBox.remove();
+//     getScore();
+//     // function for user to save info goes here
+// }
+
+
+//     var index = 0;
+//     var quesitonsObj = questions[index]
+//     for(var i = 0; i < quesitonsObj.choices.length; i++) {
+//         var choicesElement = document.createElement("button")
+//         choicesElement.setAttribute("class", "choices")
+//         choicesElement.setAttribute("data-value", quesitonsObj.choices[i])
+//         choicesElement.textContent = quesitonsObj.choices[i]
+//         document.body.appendChild(choicesElement);
+//     };
+//     document.body.addEventListener("click", function(event) {
+//         // console.log(event)
+//         if(event.target.className === "choices") {
+//             var userChoice = event.target.textContent
+//             if(userChoice === quesitonsObj.answer) {
+//                 console.log("you got it correct")
+//                 console.log("iterate next question")
+//                 index++
+//                 console.log(index)
+//                 console.log(questions[index])
+//             }
+//         }
     
 
 // });
-// }
+// 
