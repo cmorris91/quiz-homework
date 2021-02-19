@@ -27,7 +27,11 @@ var question4 = {
     answer: "Array"
 
 }
-        console.log(question4.choices[3]);
+var questions = [
+    question1, question2, question3, question4
+]
+
+console.log(questions[0].answer);
 
 var secondsLeft = 60;
 
@@ -55,9 +59,11 @@ function timeLeft() {
     return;
 };
 
+var questionIndex = 0;
+
 function askQuestions() {
     var questionBox = document.createElement("h2");
-    questionBox.textContent= (question1.question);
+    questionBox.textContent= (questions[questionIndex].question);
     mainEl.appendChild(questionBox);
 
     var choiceA = document.createElement("button");
@@ -65,16 +71,38 @@ function askQuestions() {
     var choiceC = document.createElement("button");
     var choiceD = document.createElement("button");
 
-    choiceA.textContent= (question1.choices[0]);
-    choiceB.textContent= (question1.choices[1]);
-    choiceC.textContent= (question1.choices[2]);
-    choiceD.textContent= (question1.choices[3]);
+    choiceA.setAttribute("class", "choices");
+    choiceB.setAttribute("class", "choices");
+    choiceC.setAttribute("class", "choices");
+    choiceD.setAttribute("class", "choices");
+
+
+    choiceA.textContent= (questions[questionIndex].choices[0]);
+    choiceB.textContent= (questions[questionIndex].choices[1]);
+    choiceC.textContent= (questions[questionIndex].choices[2]);
+    choiceD.textContent= (questions[questionIndex].choices[3]);
 
     mainEl.appendChild(choiceA);
     mainEl.appendChild(choiceB);
     mainEl.appendChild(choiceC);
     mainEl.appendChild(choiceD);
     
+    console.log(choiceB);
+};
+
+mainEl.addEventListener("click", function(event) {
+    console.log(event)
+    if(event.target.className === "choices") {
+        console.log(event.target.textContent)
+        var userChoice = event.target.textContent
+    }
+        if(userChoice === questions[0].answer) {
+        console.log("correct");
+    
+        }
+
+})
+
 
     // var index = 0;
     // var quesitonsObj = questions[index]
@@ -98,6 +126,6 @@ function askQuestions() {
     //         }
     //     }
     
-}
+
 // });
 // }
